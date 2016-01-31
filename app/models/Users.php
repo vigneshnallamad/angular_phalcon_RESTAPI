@@ -1,6 +1,10 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Confirmation;
+use Phalcon\Validation\Validator\InclusionIn;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -60,29 +64,6 @@ class Users extends \Phalcon\Mvc\Model
     public $fileName;
 
     /**
-     * Validations and business logic
-     *
-     * @return boolean
-     */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -114,4 +95,127 @@ class Users extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    /**
+     * Pre gen validator class
+     * @param  boolean $createFlag flag to know if edit or create
+     * @return Validator
+     */
+    public static function getValidator($createFlag = true)
+    {
+        $validation = new Validation();
+
+        $validation->add(
+            'firstName',
+            new PresenceOf(
+                array(
+                    'message' => 'The first name is required'
+                )
+            )
+        );
+
+        $validation->add(
+            'lastName',
+            new PresenceOf(
+                array(
+                    'message' => 'The last name is required'
+                )
+            )
+        );
+
+        $validation->add(
+            'gender',
+            new PresenceOf(
+                array(
+                    'message' => 'The gender is required'
+                )
+            )
+        );
+
+        $validation->add(
+            'gender',
+            new InclusionIn(
+                array(
+                    'message' => 'The gender should be male or female',
+                    'domain' => array('male', 'female')
+                )
+            )
+        );
+
+        $validation->add(
+            'email',
+            new PresenceOf(
+                array(
+                    'message' => 'The e-mail is required'
+                )
+            )
+        );
+
+        $validation->add(
+            'email',
+            new Email(
+                array(
+                    'message' => 'The e-mail is not valid'
+                )
+            )
+        );
+        if ($createFlag) {
+            $validation->add(
+                'password',
+                new PresenceOf(
+                    array(
+                        'message' => 'The password is required'
+                    )
+                )
+            );
+
+            $validation->add(
+                'confirmPassword',
+                new PresenceOf(
+                    array(
+                        'message' => 'The confirm password is required'
+                    )
+                )
+            );
+
+            $validation->add(
+                'password',
+                new Confirmation(
+                    array(
+                        'message' => 'Password and confirm password does not match',
+                        'with' => 'confirmPassword'
+                    )
+                )
+            );
+        }
+
+        $validation->add(
+            'details',
+            new PresenceOf(
+                array(
+                    'message' => 'The details are required'
+                )
+            )
+        );
+
+        $validation->add(
+            'details',
+            new InclusionIn(
+                array(
+                    'message' => 'The details should be either BE, ME, BCOM',
+                    'domain' => array('BE', 'ME', 'BCOM')
+                )
+            )
+        );
+
+        $validation->add(
+            'hobby',
+            new PresenceOf(
+                array(
+                    'message' => 'The hobby is required'
+                )
+            )
+        );
+
+        return $validation;
+    }
 }

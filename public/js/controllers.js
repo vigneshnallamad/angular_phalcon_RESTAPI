@@ -54,8 +54,13 @@ angular.module('userApp.controllers',['naif.base64']).controller('UserListContro
         } else if (!$scope.user.hobby.length) {
             popupService.showPopup('Select atleast one hobby.');
         } else {
-            $scope.user.$save(function(){
-                $state.go('users');
+            $scope.user.$save(function(data){
+                if (data.status == "error") {
+                    console.log(data);
+                    popupService.showPopup('Data error!!');
+                } else {
+                    $state.go('users');
+                }
             });
         }
     }
@@ -70,8 +75,13 @@ angular.module('userApp.controllers',['naif.base64']).controller('UserListContro
 
     $scope.updateUser=function(){
         if ($scope.user.hobby.length) {
-            $scope.user.$update(function(){
-                $state.go('users');
+            $scope.user.$update(function(data){
+                if (data.status == "error") {
+                    console.log(data);
+                    popupService.showPopup('Data error!!');
+                } else {
+                    $state.go('users');
+                }
             });            
         } else {
             popupService.showPopup('Select atleast one hobby.');
