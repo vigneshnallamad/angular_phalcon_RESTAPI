@@ -39,7 +39,13 @@ class ApiController extends \Phalcon\Mvc\Controller
         $user->gender = $inputData->gender;
         $user->details = $inputData->details;
         $user->hobby = serialize($inputData->hobby);
+        if ($inputData->image->filetype == 'image/jpeg') {
+            $user->fileName = '.jpg';
+        } else {
+            $user->fileName = '.png';
+        }
         $user->create();
+        file_put_contents('files/'.$user->id.$user->fileName, base64_decode($inputData->image->base64));
         $this->response->setJsonContent($user);
         $this->response->setStatusCode(200, "OK");
         $this->response->send();

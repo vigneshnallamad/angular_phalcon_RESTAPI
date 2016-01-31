@@ -31,10 +31,11 @@
     </div>
     <script type="text/javascript" src="lib/jquery.min.js"></script>
     <script type="text/javascript" src="lib/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="lib/angular-resource.min.js"></script>
+    <script type="text/javascript" src="lib/angular-base64-upload.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
-    <script type="text/javascript" src="lib/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="lib/angular-resource.min.js"></script>
 </body>
 </html>

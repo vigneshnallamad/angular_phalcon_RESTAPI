@@ -85,6 +85,14 @@ class UsersMigration_100 extends Migration
                             'size' => 225,
                             'after' => 'details'
                         )
+                    ),
+                    new Column(
+                        'fileName',
+                        array(
+                            'type' => Column::TYPE_VARCHAR,
+                            'size' => 45,
+                            'after' => 'hobby'
+                        )
                     )
                 ),
                 'indexes' => array(

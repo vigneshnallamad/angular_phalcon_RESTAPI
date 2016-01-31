@@ -54,6 +54,12 @@ class Users extends \Phalcon\Mvc\Model
     public $hobby;
 
     /**
+     *
+     * @var string
+     */
+    public $fileName;
+
+    /**
      * Validations and business logic
      *
      * @return boolean

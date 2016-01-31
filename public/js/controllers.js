@@ -1,4 +1,4 @@
-angular.module('userApp.controllers',[]).controller('UserListController',function($scope,$state,popupService,$window,User){
+angular.module('userApp.controllers',['naif.base64']).controller('UserListController',function($scope,$state,popupService,$window,User){
 
     $scope.users=User.query();
 
