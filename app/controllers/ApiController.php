@@ -35,7 +35,7 @@ class ApiController extends \Phalcon\Mvc\Controller
         $user->firstName = $inputData->firstName;
         $user->lastName = $inputData->lastName;
         $user->email = $inputData->email;
-        $user->password = $inputData->password;
+        $user->password = md5($inputData->password);
         $user->gender = $inputData->gender;
         $user->details = $inputData->details;
         $user->hobby = serialize($inputData->hobby);
