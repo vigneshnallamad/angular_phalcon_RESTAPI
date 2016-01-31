@@ -1,0 +1,37 @@
+<table class="table usertable">
+    <tr>
+        <td><h3>Details for {{user.firstName}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>{{user.firstName}}</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>{{user.lastName}}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{user.email}}</td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td>{{user.gender}}</td>
+    </tr>
+    <tr>
+        <td>Education details</td>
+        <td>{{user.details}}</td>
+    </tr>
+    <tr>
+        <td>Hobbies</td>
+        <td>
+            <ul>
+                <li ng-repeat="hob in user.hobby">{{hob}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<div>
+    <a class="btn btn-primary" ui-sref="editUser({id:user.id})">Edit</a>
+</div>
