@@ -3,9 +3,11 @@
     <tr>
         <td><h3>All Users</h3></td>
         <td></td>
+        <td></td>
     </tr>
     <tr ng-repeat="user in users">
-        <td>{{user.firstName}} {{user.lastName}}</td>
+        <td><img width="50px" ng-src="files/{{user.id}}{{user.fileName}}"><span>    {{user.firstName}} {{user.lastName}}</span></td>
+        <td></td>
         <td>
             <a class="btn btn-primary" ui-sref="viewUser({id:user.id})">View</a>
             <a class="btn btn-danger"  ng-click="deleteUser(user)">Delete</a>
