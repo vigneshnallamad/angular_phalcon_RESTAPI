@@ -5,6 +5,7 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\InclusionIn;
+use Phalcon\Validation\Validator\Uniqueness;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -158,7 +159,20 @@ class Users extends \Phalcon\Mvc\Model
                 )
             )
         );
+
         if ($createFlag) {
+            
+            $validation->add(
+                'email',
+                new Uniqueness(
+                    array(
+                        'model' => 'Users',
+                        'attribute' => 'email',
+                        'message' => 'This email id is already taken.'
+                    )
+                )
+            );
+
             $validation->add(
                 'password',
                 new PresenceOf(
