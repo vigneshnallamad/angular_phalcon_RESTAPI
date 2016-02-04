@@ -61,6 +61,10 @@ angular.module('userApp.controllers',['naif.base64']).controller('UserListContro
                 } else {
                     $state.go('users');
                 }
+            }, function(error) {
+                if (error.data.status == "error") {
+                    popupService.showPopup(error.data.data[0].message);
+                }
             });
         }
     }
