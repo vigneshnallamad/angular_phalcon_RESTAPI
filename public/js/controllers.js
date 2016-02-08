@@ -86,6 +86,14 @@ angular.module('userApp.controllers',['naif.base64']).controller('UserListContro
                 } else {
                     $state.go('users');
                 }
+            }, function(error) {
+                if (error.data.status == "error") {
+                    if (error.data.data[0].message != 'undefined') {
+                        popupService.showPopup(error.data.data[0].message);
+                    } else {
+                        popupService.showPopup(error.data.data);
+                    }
+                }
             });            
         } else {
             popupService.showPopup('Select atleast one hobby.');
