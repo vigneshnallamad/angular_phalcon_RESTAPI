@@ -93,16 +93,22 @@ class ApiController extends \Phalcon\Mvc\Controller
             $this->response->setStatusCode(401, 'validation fail');
             $this->response->send();
         } else {
-            $user->firstName = $inputData->firstName;
-            $user->lastName = $inputData->lastName;
-            $user->email = $inputData->email;
-            $user->gender = $inputData->gender;
-            $user->details = $inputData->details;
-            $user->hobby = serialize($inputData->hobby);
-            $user->save();
-            $this->response->setJsonContent(['status' => 'success', 'data' => 'user updated']);
-            $this->response->setStatusCode(200, "OK");
-            $this->response->send();
+            if ($user->email != $inputData->email && Users::findFirstByEmail($inputData->email)) {
+                $this->response->setJsonContent(['status' => 'error', 'data' => 'email id already in use']);
+                $this->response->setStatusCode(401, 'validation fail');
+                $this->response->send();
+            } else {
+                $user->firstName = $inputData->firstName;
+                $user->lastName = $inputData->lastName;
+                $user->email = $inputData->email;
+                $user->gender = $inputData->gender;
+                $user->details = $inputData->details;
+                $user->hobby = serialize($inputData->hobby);
+                $user->save();
+                $this->response->setJsonContent(['status' => 'success', 'data' => 'user updated']);
+                $this->response->setStatusCode(200, "OK");
+                $this->response->send();
+            }
         }
     }
 

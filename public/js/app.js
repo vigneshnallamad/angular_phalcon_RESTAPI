@@ -1,6 +1,6 @@
 angular.module('userApp',['ui.router','ngResource','userApp.controllers','userApp.services']);
 
-angular.module('userApp').config(function($stateProvider,$httpProvider){
+angular.module('userApp').config(function($stateProvider,$httpProvider,$locationProvider){
     $stateProvider.state('users',{
         url:'/users',
         templateUrl:'partials/users.html',
@@ -18,6 +18,7 @@ angular.module('userApp').config(function($stateProvider,$httpProvider){
         templateUrl:'partials/user-edit.html',
         controller:'UserEditController'
     });
+    // $locationProvider.html5Mode(true);
 }).run(function($state){
    $state.go('users');
 });
